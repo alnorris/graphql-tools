@@ -123,7 +123,8 @@ export default Comment;
 
 ```js
 // post.js
-import Comment from './comment';
+
+Comment from './comment';
 
 const Post = `
   type Post {
@@ -228,18 +229,17 @@ export default makeExecutableSchema({
 });
 ```
 
-You can do the same thing with resolvers - just pass around multiple resolver objects, and at the end combine them together using something like the Lodash `merge` function:
+You can do the same thing with resolvers - just pass around multiple resolver objects, and at the end combine them together using a plain array.:
 
 ```js
-import { merge } from 'lodash';
 
 import { resolvers as gitHubResolvers } from './github/schema';
 import { resolvers as sqlResolvers } from './sql/schema';
 
 const rootResolvers = { ... };
 
-// Merge all of the resolver objects together
-const resolvers = merge(rootResolvers, gitHubResolvers, sqlResolvers);
+// Pass an array of resolvers, which will be merged together by makeExecutableSchema
+const resolvers = [rootResolvers, gitHubResolvers, sqlResolvers];
 ```
 
 <h2 id="extend-types">Extending Types</h2>
